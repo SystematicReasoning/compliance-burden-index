@@ -1,0 +1,146 @@
+version,section,type,description_snippet,tabulated_date
+v2.0.0,Appendix H,changed,Registration Schemes: subject's jurisdiction as specified in Section 7.1.4.2.4 (entry 1),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: Subject Organization Name Field per Section 7.1.4.2.1 (entry 1),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: Subject Registration Number Field per Section 7.1.4.2.5 (entry 1),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: subject's jurisdiction as specified in Section 7.1.4.2.4 (entry 2),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: Subject Organization Name Field per Section 7.1.4.2.1 (entry 2),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: Subject Registration Number Field per Section 7.1.4.2.5 (entry 2),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: Subject Registration Number Field per Section 7.1.4.2.5 (entry 3),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: subject's jurisdiction as specified in Section 7.1.4.2.4 (entry 3),2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: included as specified in Section 7.1.4.2.8 and/or,2026-04-02
+v2.0.0,Appendix H,changed,Registration Schemes: and/or Section 7.1.2,2026-04-02
+v2.0.0,9.6.4,changed,Relying party representations and warranties: Beneficiaries clause,2026-04-02
+v2.0.0,9.6.5,changed,Representations and warranties of other participants: section heading,2026-04-02
+v2.0.0,9.7,changed,Disclaimers of warranties: section heading,2026-04-02
+v2.0.0,9.8,changed,Limitations of liability: Due Diligence requirements per Section 3.2.2.13 by RA,2026-04-02
+v2.0.0,5.5.5,changed,Requirements for time-stamping of records: section heading,2026-04-02
+v2.0.0,6.4,changed,Activation data: section heading,2026-04-02
+v2.0.0,8.1,changed,Frequency or circumstances of assessment: meets criteria of Section 8,2026-04-02
+v2.0.0,8.6,changed,Communication of results: section heading,2026-04-02
+v2.0.0,8.7,changed,Pre-issuance Readiness Audit: section heading,2026-04-02
+v2.0.0,5.3.3,changed,Training and Skills requirements (entry 1),2026-04-02
+v2.0.0,5.4,changed,Audit logging procedures: per Section 5.4 of Baseline Requirements,2026-04-02
+v2.0.0,5.4.1,changed,Types of events recorded: per Section 5.4.1,2026-04-02
+v2.0.0,14.2.1,changed,General: fulfills all requirements of Section 11.13,2026-04-02
+v2.0.0,4.6,changed,Certificate renewal: section heading,2026-04-02
+v2.0.0,4.6.1,changed,Circumstance for certificate renewal: section heading,2026-04-02
+v2.0.0,5.3.2,changed,Background check procedures: section heading,2026-04-02
+v2.0.0,5.3.3,changed,Training and Skills requirements (entry 2),2026-04-02
+v2.0.0,4.4,changed,Certificate acceptance: section heading,2026-04-02
+v2.0.0,4.5,changed,Key pair and certificate usage: section heading,2026-04-02
+v2.0.0,4.5.1,changed,Subscriber private key and certificate usage (entry 1),2026-04-02
+v2.0.0,4.5.1,changed,Subscriber private key and certificate usage (entry 2),2026-04-02
+v2.0.0,4.5.2,changed,Relying party public key and certificate usage: section heading,2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: except when permitted otherwise under Section 3.2.2.14.1,2026-04-02
+v2.0.0,4.1,changed,Certificate Application: section heading,2026-04-02
+v2.0.0,4.1.1,changed,Who can submit a certificate application: section heading,2026-04-02
+v2.0.0,4.3.1,changed,CA actions during certificate issuance: 4.3.2 Notification to subscriber by CA,2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: section heading,2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: Except for reissuance under Section 3.2.2.14.2,2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: except when permitted otherwise in Section 3.2.2.14.1,2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: extent permitted under Section 3.2.2.9 and 3.2.2.10 (entry 1),2026-04-02
+v2.0.0,3.2.2.14.3,changed,Age of Validated Data: extent permitted under Section 3.2.2.9 and 3.2.2.10 (entry 2),2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: Operational Existence under Section 3.2.2.6,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: Certificate Approver under Section 3.2.2.8,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: right to use Domain Name under Section 3.2.2.7,2026-04-02
+v2.0.0,3.2.2.14.2,changed,Re-issuance Requests: section heading,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: section heading,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: Principal Individual verified under Section 3.2.2.2.2 (4),2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: Place of Business under Section 3.2.2.4.1,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: Verified Method of Communication required by Section 3.2.2.5,2026-04-02
+v2.0.0,3.2.2.14.1,changed,Validation For Existing Subscribers: but still MUST perform verification required by Section 3.2.2.5.2 (B),2026-04-02
+v2.0.0,3.2.2.13,changed,Final Cross-Correlation and Due Diligence: subjected to Audit Requirements of Section 8.1.1 and Section 8.2 (entry 1),2026-04-02
+v2.0.0,3.2.2.13,changed,Final Cross-Correlation and Due Diligence: subjected to Audit Requirements of Section 8.1.1 and Section 8.2 (entry 2),2026-04-02
+v2.0.0,3.2.2.13,changed,Final Cross-Correlation and Due Diligence: EV Certificates compliance with Section 1.3.2,2026-04-02
+v2.0.0,3.2.2.14,changed,Requirements for Re-use of Existing Documentation: section heading,2026-04-02
+v2.0.0,3.2.2.13,changed,Final Cross-Correlation and Due Diligence: section heading,2026-04-02
+v2.0.0,3.2.2.13,changed,Final Cross-Correlation and Due Diligence: fulfilling qualification requirements per Section 5.3.2,2026-04-02
+v2.0.0,3.2.2.13,changed,"Final Cross-Correlation and Due Diligence: RA compliance with Section 3.2.2.13 Subsections (1), (2), (3)",2026-04-02
+v2.0.0,3.2.2.12.2,changed,Denied Lists and Other Legal Block Lists: section heading,2026-04-02
+v2.0.0,3.2.2.12.3,changed,Parent/Subsidiary/Affiliate Relationship: section heading,2026-04-02
+v2.0.0,3.2.2.12.3,changed,"Parent/Subsidiary/Affiliate Relationship: when allowed under multiple Sections, MUST verify Applicant's relationship",2026-04-02
+v2.0.0,3.2.2.12.3,changed,Parent/Subsidiary/Affiliate Relationship: Independent Confirmation per Section 3.2.2.11.4,2026-04-02
+v2.0.0,3.2.2.11.5,changed,Qualified Independent Information Source: section heading,2026-04-02
+v2.0.0,3.2.2.11.6,changed,Qualified Government Information Source: section heading,2026-04-02
+v2.0.0,3.2.2.11.7,changed,Qualified Government Tax Information Source: section heading,2026-04-02
+v2.0.0,3.2.2.12,changed,Other Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.12.1,changed,High Risk Status: section heading,2026-04-02
+v2.0.0,3.2.2.11.2,changed,Verified Accountant Letter: section heading,2026-04-02
+v2.0.0,3.2.2.11.2,changed,Verified Accountant Letter: as verified by CA in Section 3.2.2.11.2 (2)(A),2026-04-02
+v2.0.0,3.2.2.11.3,changed,Face-to-Face Validation: section heading,2026-04-02
+v2.0.0,3.2.2.11.3,changed,Face-to-Face Validation: as verified by CA in Section 3.2.2.11.3 (1)(A),2026-04-02
+v2.0.0,3.2.2.11.4,changed,Independent Confirmation From Applicant: section heading,2026-04-02
+v2.0.0,3.2.2.10.2,changed,Acceptable Methods of Verification: signature of Certificate Approver per Section 3.2.2.9,2026-04-02
+v2.0.0,3.2.2.11,changed,Verification of Certain Information Sources: section heading,2026-04-02
+v2.0.0,3.2.2.11.1,changed,Verified Legal Opinion: section heading,2026-04-02
+v2.0.0,3.2.2.11.1,changed,Verified Legal Opinion: as verified by CA in Section 3.2.2.11.1 (2)(A),2026-04-02
+v2.0.0,3.2.2.9.2,changed,Acceptable Methods of Signature Verification: section heading,2026-04-02
+v2.0.0,3.2.2.10,changed,Verification of Approval of EV Certificate Request: section heading,2026-04-02
+v2.0.0,3.2.2.10.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.10.2,changed,Acceptable Methods of Verification: section heading,2026-04-02
+v2.0.0,3.2.2.8.4,changed,Pre-Authorized Certificate Approver: per Section 3.2.2.8.3,2026-04-02
+v2.0.0,3.2.2.9,changed,Verification of Signature on Subscriber Agreement and EV Certificate Requests: section heading,2026-04-02
+v2.0.0,3.2.2.9,changed,Verification of Signature on Subscriber Agreement and EV Certificate Requests: pre-authorized per Section 3.2.2.8.4,2026-04-02
+v2.0.0,3.2.2.9.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.9.1,changed,Verification Requirements: per requirements of Section 3.2.2.10,2026-04-02
+v2.0.0,3.2.2.8.2,changed,"Acceptable Methods of Verification - Name, Title and Agency: Independent Confirmation per Section 3.2.2.11.4",2026-04-02
+v2.0.0,3.2.2.8.3,changed,Acceptable Methods of Verification - Authority: section heading,2026-04-02
+v2.0.0,3.2.2.8.3,changed,Acceptable Methods of Verification - Authority: Independent Confirmation per Section 3.2.2.11.4,2026-04-02
+v2.0.0,3.2.2.8.4,changed,Pre-Authorized Certificate Approver: section heading,2026-04-02
+v2.0.0,3.2.2.7,changed,Verification of Applicant's Domain Name: section heading,2026-04-02
+v2.0.0,3.2.2.7.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.8,changed,"Verification of Name, Title, and Authority of Contract Signer and Certificate Approver: section heading",2026-04-02
+v2.0.0,3.2.2.8.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.8.2,changed,"Acceptable Methods of Verification - Name, Title and Agency: section heading",2026-04-02
+v2.0.0,3.2.2.6,changed,Verification of Applicant's Operational Existence: section heading,2026-04-02
+v2.0.0,3.2.2.6.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.6.1,changed,Verification Requirements: Government Entity legal existence per Section 3.2.2.2,2026-04-02
+v2.0.0,3.2.2.6.2,changed,Acceptable Methods of Verification: section heading,2026-04-02
+v2.0.0,3.2.2.4.1,changed,Address of Applicant's Place of Business: QGIS used in Section 3.2.2.2,2026-04-02
+v2.0.0,3.2.2.5,changed,Verified Method of Communication: section heading,2026-04-02
+v2.0.0,3.2.2.5.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.5.2,changed,Acceptable Methods of Verification: section heading,2026-04-02
+v2.0.0,3.2.2.3.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.3.2,changed,Acceptable Method of Verification: section heading,2026-04-02
+v2.0.0,3.2.2.4,changed,Verification of Applicant's Physical Existence: section heading,2026-04-02
+v2.0.0,3.2.2.4.1,changed,Address of Applicant's Place of Business: section heading,2026-04-02
+v2.0.0,3.2.2.4.1,changed,Address of Applicant's Place of Business: used in Section 3.2.2.2 to verify legal existence,2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: asserted by Attorney per Section 3.2.2.11.1,2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: items listed in Section 3.2.2.2.1 (3) (A) through (C),2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: items listed in Section 3.2.2.2.1 (4) MUST be verified,2026-04-02
+v2.0.0,3.2.2.3,changed,Verification of Applicant's Legal Existence and Identity - Assumed Name: section heading,2026-04-02
+v2.0.0,3.2.2.2,changed,Verification of Applicant's Legal Existence and Identity: section heading,2026-04-02
+v2.0.0,3.2.2.2.1,changed,Verification Requirements: section heading,2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: section heading,2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: items listed in Section 3.2.2.2.1 (1) MUST be verified directly,2026-04-02
+v2.0.0,3.2.2.2.2,changed,Acceptable Method of Verification: items listed in Section 3.2.2.2.1 (2) MUST be verified directly,2026-04-02
+v2.0.0,3.2.2.1.2,changed,Acceptable Methods of Verification - Overview: section heading,2026-04-02
+v2.0.0,3.2.2.1.2,changed,Acceptable Methods of Verification - Overview: per Sections 3.2.2 through 3.2.14,2026-04-02
+v2.0.0,3.2.2.1.2,changed,Acceptable Methods of Verification - Overview: through 3.2.14 alternatives,2026-04-02
+v2.0.0,3.2.2.1.3,changed,Disclosure of Verification Sources: section heading,2026-04-02
+v2.0.0,3.1.1,changed,Types of names: CA checks field per Section 3.2.2.12.1,2026-04-02
+v2.0.0,3.1.6,changed,"Recognition, authentication, and role of trademarks: section heading",2026-04-02
+v2.0.0,3.2.2.1,changed,Verification Requirements - Overview: section heading,2026-04-02
+v2.0.0,3.2.2.1,changed,Verification Requirements - Overview: Verify Applicant's legal existence and identity per Section 3.2.2.2.1,2026-04-02
+v2.0.0,2.1,changed,Repositories: section heading,2026-04-02
+v2.0.0,2.1,changed,Repositories: 2. Publication of certification information,2026-04-02
+v2.0.0,2.1,changed,Repositories: CA SHALL publicly disclose CA business practices per Section 8,2026-04-02
+v2.0.0,2.3,changed,Time or frequency of publication: section heading,2026-04-02
+v2.0.0,3.1.1,changed,Types of names: section heading,2026-04-02
+v2.0.0,1.6.1,changed,Definitions: Qualified Government Information Source,2026-04-02
+v2.0.0,1.6.1,changed,Definitions: Verified Accountant Letter,2026-04-02
+v2.0.0,1.6.1,changed,Definitions: Verified Legal Opinion,2026-04-02
+v2.0.0,1.6.1,changed,Definitions: Verified Method of Communication,2026-04-02
+v2.0.0,1.6.1,changed,Definitions: Qualified Auditor,2026-04-02
+v2.0.0,Relevant Dates,changed,Relevant Dates: 2020-10-01 [11.1.3] Prior to using an Incorporating Agency,2026-04-02
+v2.0.0,Relevant Dates,changed,Relevant Dates: 2022-09-01 [9.2.7] CAs MUST NOT include organizationalUnitName,2026-04-02
+v2.0.0,2.0.0,changed,Document History: 2.0.0 SC65 ... 15-May-2024,2026-04-02
+v2.0.0,Relevant Dates,changed,Relevant Dates: 2020-01-31 [9.2.8] subject:organizationIdentifier present,2026-04-02
+v2.0.0,Relevant Dates,changed,Relevant Dates: 2020-09-01 [9.4] & Appendix F,2026-04-02
+v2.0.0,2.0.0,added,Document History: 2.0.0 SC65 Convert EVGs into RFC 3647 format,2026-04-02
+v2.0.1,7.1.4.3,removed,Additional Technical Requirements for EV Certificates: Issuer's EV policy identifier policyQualifierId Required id-qt 1,2026-04-02
+v2.0.1,7.1.4.3,removed,Additional Technical Requirements for EV Certificates: id-qt 1 cPSuri HTTP URL for Subordinate CA's CPS,2026-04-02
+v2.0.1,7.1.4.3,changed,Additional Technical Requirements for EV Certificates: cRLDistributionPoints extension MUST be present in Subscriber Certificates,2026-04-02
+v2.0.1,1.2.1,added,Revisions: 2.0.0 SC65 RFC 3647 format; 2.0.1 SC72 Delete except policyQualifiers; align with BRs as NOT RECOMMENDED,2026-04-02
+v2.0.1,7.1.4.3,removed,Additional Technical Requirements for EV Certificates: anyPolicy identifier; certificatePolicies extension in EV Certificates MUST include,2026-04-02
+v2.0.1,7.1.4.3,changed,Additional Technical Requirements for EV Certificates: certificatePolicies extension in EV Certificates MUST include,2026-04-02

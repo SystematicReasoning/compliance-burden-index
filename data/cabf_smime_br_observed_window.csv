@@ -1,0 +1,2 @@
+window_id,window_start,window_end,start_version,end_version,version_count,added,removed,modified,total_changes,provenance,extraction_method,note
+observed_2025_2026,2025-05-14,2026-03-27,v1.0.9,v1.0.13,5,15,1,13,29,"CPS Dev App tabulation of cab_forum_smime_br change history","Per-section change classification across versions in window; aggregate captured (15/1/13). Per-version breakdown queued.",

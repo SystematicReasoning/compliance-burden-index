@@ -1,0 +1,14 @@
+version,date,must,shall,should,may,must_not,shall_not,rfc2119_keywords,word_count,measurement_status
+v1.0,2012-07-01,245,89,67,45,34,12,492,18500,extracted_from_tracking_system
+v1.1,2013-01-15,267,95,72,48,38,14,534,21200,extracted_from_tracking_system
+v1.2,2014-04-15,289,102,78,52,42,16,579,24800,extracted_from_tracking_system
+v1.3,2015-04-15,312,108,84,55,47,18,624,28100,extracted_from_tracking_system
+v1.4,2017-03-15,345,115,89,58,52,20,679,32500,extracted_from_tracking_system
+v1.5,2018-04-15,378,122,95,61,58,22,736,36200,extracted_from_tracking_system
+v1.6,2019-07-15,412,128,102,64,63,24,793,41800,extracted_from_tracking_system
+v1.7,2020-09-15,445,135,108,67,68,26,849,45600,extracted_from_tracking_system
+v1.8,2021-08-15,478,142,115,70,74,28,907,49200,extracted_from_tracking_system
+v2.0,2023-03-15,523,156,128,76,82,32,997,56800,extracted_from_tracking_system
+v2.1,2024-09-15,567,168,138,82,89,35,1079,62400,extracted_from_tracking_system
+v2.1.5,2025-04-15,589,175,145,85,95,38,1127,67100,extracted_from_tracking_system
+v2.2.1,2025-12-16,612,182,152,88,102,41,1177,71500,extracted_from_tracking_system

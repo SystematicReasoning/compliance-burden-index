@@ -1,0 +1,20 @@
+version,section,type,description_snippet,tabulated_date
+v3.x.0,6.3.2,changed,Certificate operational periods and key pair usage periods: Timestamp Certificate validity and key usage requirements,2026-04-02
+v3.x.0,6.3.2,added,Certificate operational periods and key pair usage periods: Private Key removal and destruction ceremonies paragraph,2026-04-02
+v3.x.0,6.3.2,added,Certificate operational periods and key pair usage periods: backup sets and restoration of Private Keys paragraph,2026-04-02
+v3.x.0,6.8,added,Time-stamping: SHA-1 digest algorithm requirement,2026-04-02
+v3.x.0,6.2.7.2,changed,Private key storage for Timestamp Authorities: Private Key protection requirements,2026-04-02
+v3.x.0,6.2.7.2,added,"Private key storage for Timestamp Authorities: Timestamp Certificates issued after April 15, 2025 paragraph",2026-04-02
+v3.x.0,6.3.2,added,Certificate operational periods and key pair usage periods: new paragraph at the beginning of section,2026-04-02
+v3.x.0,6.3.2,added,Certificate operational periods and key pair usage periods: Code Signing Certificate validity period MUST NOT exceed 39 months,2026-04-02
+v3.x.0,1.2.1,removed,Revisions: Revisions Table deleted row,2026-04-02
+v3.x.0,1.2.2,changed,Relevant Dates: Compliance Column,2026-04-02
+v3.x.0,1.2.2,changed,Relevant Dates: Section(s) Column,2026-04-02
+v3.x.0,1.2.2,changed,Relevant Dates: Summary Description Column,2026-04-02
+v3.x.0,1.2.1,changed,Revisions: Ballot Column,2026-04-02
+v3.x.0,1.2.1,changed,Revisions: Description Column,2026-04-02
+v3.x.0,1.2.1,changed,Revisions: Effective Date Column,2026-04-02
+v3.x.0,1.2.1,changed,Revisions: Version Column,2026-04-02
+v3.10.0,1.2.2,added,Relevant Dates: validity reduction compliance deadline entry,2026-04-02
+v3.10.0,6.3.2,changed,"Certificate operational periods and key pair usage periods: 460-day validity reduction for certificates issued after March 1, 2026",2026-04-02
+v3.10.0,1.2.1,changed,Revisions: revision history table latest version update,2026-04-02

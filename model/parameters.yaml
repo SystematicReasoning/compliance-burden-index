@@ -1,0 +1,224 @@
+# Knowledge Currency Budget — parameters
+# Version stamp comes from /VERSION; this file does not declare it.
+#
+# Each parameter carries:
+#   - central, low, high values
+#   - source citation
+#   - evidence_grade: literature_supported | inferential | practitioner_estimate | calibration_target
+#   - notes
+#
+# Sensitivity analysis is required for every reported number that depends on a
+# parameter graded inferential or weaker.
+
+# ---------------------------------------------------------------------------
+# Reading and decay parameters
+# ---------------------------------------------------------------------------
+
+reading_rate:
+  central_wpm: 238
+  low_wpm: 175
+  high_wpm: 300
+  source: "Brysbaert (2019) JML 109:104047"
+  evidence_grade: literature_supported
+  notes: "Meta-analytic mean adult silent reading rate for non-fiction English text. 190 studies, 18,573 participants. Range 175-300 wpm is the defensible interval."
+
+working_accuracy_threshold:
+  central: 0.70
+  low: 0.50
+  high: 0.85
+  source: "Defined; sensitivity analysis required."
+  evidence_grade: inferential
+  notes: "Threshold for working accuracy on a complex normative corpus. Not directly measured in cited literature; defined as the minimum recall fraction at which an analyst can reliably perform real-time substantive review without re-reading source material. Robustness target: result must hold across 0.5-0.85."
+
+decay_time_constant_days:
+  central: 120
+  low: 60
+  high: 180
+  sources:
+    - "Murre & Dros (2015) PLoS ONE: replication of Ebbinghaus forgetting curve"
+    - "Bahrick (1984) JEP:G: long-term retention of declarative knowledge"
+    - "Arthur, Bennett, Stanush & McNelly (1998) Human Performance: meta-analysis of skill and knowledge decay"
+  evidence_grade: inferential
+  notes: "Exponential decay time constant for declarative working knowledge of complex normative content. Inferred from cognitive-skill decay meta-analysis: knowledge skills show ~30% decrement at 30 days under non-recurrent conditions, consistent with tau ~90-150 days. Conservative central 120 days. Cited literature does not directly study normative-corpus working accuracy. Behavioral validation queued for v0.4."
+
+# ---------------------------------------------------------------------------
+# Per-change time parameters
+# ---------------------------------------------------------------------------
+
+per_version_diff_review_hours:
+  central: 0.5
+  low: 0.25
+  high: 1.0
+  source: "Practitioner estimate."
+  evidence_grade: practitioner_estimate
+  notes: "Hours to review a version-level diff and classify substance. Lower bound assumes editorial-only versions; upper bound assumes major substantive revision."
+
+per_change_triage_hours:
+  central: 0.5
+  low: 0.25
+  high: 1.0
+  source: "Practitioner estimate."
+  evidence_grade: practitioner_estimate
+  notes: "Hours per individual change for triage: read diff, classify substance, determine scope applicability."
+
+per_substantive_change_propagation_hours:
+  central: 1.5
+  low: 0.5
+  high: 4.0
+  source: "Practitioner estimate."
+  evidence_grade: practitioner_estimate
+  notes: "Hours per substantive change for full propagation: CPS section identification, implementation evidence check, cross-regime reconciliation, draft amendment language."
+
+substantive_change_fraction:
+  central: 0.40
+  low: 0.25
+  high: 0.60
+  source: "Practitioner estimate; calibration target."
+  evidence_grade: calibration_target
+  notes: "Fraction of total changes (added + removed + modified) requiring propagation work beyond triage. Editorial, formatting, and reorganization changes excluded. Hand-classification of the 139 observed-window changes is the priority calibration sprint."
+
+# ---------------------------------------------------------------------------
+# Capacity stack: from nominal hours to currency-maintenance hours
+# ---------------------------------------------------------------------------
+
+capacity:
+  nominal_hours_per_year: 2080
+  effective_hours_per_year:
+    central: 1800
+    low: 1700
+    high: 1900
+    source: "U.S. BLS Current Population Survey, professional/managerial occupations; standard FTE less PTO, holidays, sick leave, training."
+    evidence_grade: literature_supported
+    notes: "Effective working hours per year for a salaried U.S. compliance professional after PTO, statutory holidays, and training time. Range reflects observed variation across compensation structures."
+
+  focused_work_fraction:
+    central: 0.45
+    low: 0.30
+    high: 0.55
+    sources:
+      - "Mark, Gudith & Klocke (2008) CHI: 'The cost of interrupted work'"
+      - "Mark et al. follow-on work on attention fragmentation in knowledge work"
+      - "Microsoft Work Trend Index (annual reports)"
+    evidence_grade: literature_supported
+    notes: "Fraction of effective hours spent on focused individual work, after meetings, communication, coordination, and interruption recovery. Knowledge-worker studies converge on 30-55% effective focus time."
+
+  domain_allocation_fraction_default:
+    central: 0.15
+    low: 0.05
+    high: 0.30
+    source: "Practitioner estimate; calibration target."
+    evidence_grade: practitioner_estimate
+    notes: "Default fraction of focused work hours allocated to a single regime's currency-maintenance for a generic compliance role. Persona-specific allocations override this."
+
+# ---------------------------------------------------------------------------
+# FTE capacity bases used by cabf_stack_fte.py to translate hours/year into
+# person-year equivalents under three different denominators. Each denominator
+# captures a different concept of "what one person delivers in a year" — and
+# the same hour total reads differently against each, which is the substantive
+# point of the figure.
+# ---------------------------------------------------------------------------
+
+fte_capacity_bases:
+  nominal_full_fte:
+    hours_per_year: 2080
+    label: "Nominal FTE"
+    description: "2,080 h: standard 52 weeks × 40 hours, before PTO, sick leave, holidays, or training."
+    derivation: "fixed (industry convention)"
+
+  realistic_focused_expert:
+    hours_per_year: 1500
+    label: "Realistic focused-expert"
+    description: "1,500 h: effective working hours per year after PTO, meetings, communication, and interruption recovery. This is what a senior expert plausibly devotes to focused work on a single domain across a year."
+    derivation: "stipulated, anchored against capacity.effective_hours_per_year (1,800 central) less ~17% for meeting and coordination overhead. Conservative relative to Microsoft Work Trend Index reports of focused-work share."
+    evidence_grade: practitioner_estimate
+
+  model_allocated_team_capacity:
+    hours_per_year: null
+    label: "Model-allocated team capacity"
+    description: "Sum of TLS-BR-allocated focused-work hours across all seven personas at central scenario. Computed from the per-persona capacity in the model output (current.json team_total_capacity)."
+    derivation: "loaded from results/current.json at runtime"
+
+# ---------------------------------------------------------------------------
+# Persona definitions
+#
+# Each persona is a role typically present in a working CA's compliance and
+# operations function. corpus_depth is the fraction of the corpus the role
+# must hold in working memory; change_responsibility is the fraction of
+# changes the role must actively engage with rather than acknowledge.
+# domain_allocation is this persona's slice of focused work hours allocated
+# to TLS BR currency-maintenance specifically.
+# ---------------------------------------------------------------------------
+
+personas:
+  cps_owner:
+    description: "Owner of the CA's Certification Practice Statement. Responsible for ensuring the CPS satisfies all governing requirements and for drafting amendments when requirements change."
+    corpus_depth: 1.00
+    change_responsibility: 1.00
+    domain_allocation: 0.30
+    requires_version_diff_review: true
+
+  validation_lead:
+    description: "Lead for domain control validation and identity verification. Section-specific corpus depth (3.2.x); high responsibility for changes touching validation methods."
+    corpus_depth: 0.40
+    change_responsibility: 0.50
+    domain_allocation: 0.25
+    requires_version_diff_review: false
+
+  issuance_profile_engineer:
+    description: "Engineer responsible for certificate profile and CRL/OCSP profile conformance (Section 7.x of the BRs). Section-specific depth, implementation focus."
+    corpus_depth: 0.30
+    change_responsibility: 0.30
+    domain_allocation: 0.15
+    requires_version_diff_review: false
+
+  audit_liaison:
+    description: "Internal audit function and external auditor liaison. Full policy awareness; medium-high change responsibility for items affecting attestation scope."
+    corpus_depth: 0.80
+    change_responsibility: 0.40
+    domain_allocation: 0.20
+    requires_version_diff_review: true
+
+  root_program_manager:
+    description: "Manager of the CA's relationships with browser/OS root programs. Tracks ballots, root program changes, and cross-regime contradictions."
+    corpus_depth: 0.60
+    change_responsibility: 0.50
+    domain_allocation: 0.20
+    requires_version_diff_review: true
+
+  engineering_lead:
+    description: "Lead for the CA software stack (issuance, validation, OCSP responder). Implementation-focused; low policy depth but high impact on changes affecting code paths."
+    corpus_depth: 0.20
+    change_responsibility: 0.30
+    domain_allocation: 0.10
+    requires_version_diff_review: false
+
+  executive:
+    description: "CTO, compliance director, or equivalent. Low detail depth, high risk awareness. Must be aware of material changes that affect organizational exposure."
+    corpus_depth: 0.10
+    change_responsibility: 0.05
+    domain_allocation: 0.05
+    requires_version_diff_review: false
+
+# ---------------------------------------------------------------------------
+# Historical-trajectory estimator
+# ---------------------------------------------------------------------------
+
+historical_trajectory:
+  keyword_delta_multiplier:
+    central: 2.5
+    source: |
+      Calibrated against the TLS BR observed window: 50 keyword delta vs 139
+      observed changes -> ratio 2.78. Rounded conservatively to 2.5. The
+      historical trajectory uses this multiplier as an illustrative estimator
+      only; per-version change counts are queued for direct ingestion in v0.4.
+    evidence_grade: practitioner_estimate
+    notes: |
+      The multiplier converts requirement-keyword delta into an estimated
+      total-edit count. It systematically undercounts modifications that
+      leave the keyword total unchanged.
+
+# ---------------------------------------------------------------------------
+# Regime stack inventory: canonical source is data/regime_registry.csv.
+# Methodology section 9 cites that file. This block intentionally left empty
+# to avoid two sources of truth drifting out of sync.
+# ---------------------------------------------------------------------------

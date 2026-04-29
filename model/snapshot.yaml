@@ -1,0 +1,10 @@
+# Snapshot configuration.
+#
+# snapshot_date is the canonical date of the latest measurement update.
+# It is loaded by every script that emits results, ensuring the same commit
+# produces identical outputs regardless of when the script is run.
+#
+# When the underlying data is refreshed (new ballot, new corpus measurement,
+# new per-regime ingest), bump snapshot_date as part of the data update commit.
+
+snapshot_date: 2026-04-28

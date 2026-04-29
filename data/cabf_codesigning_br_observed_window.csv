@@ -1,0 +1,2 @@
+window_id,window_start,window_end,start_version,end_version,version_count,added,removed,modified,total_changes,corpus_word_count_at_end,corpus_keywords_at_end,provenance,extraction_method
+observed_2024_2025,2024-08-01,2025-11-17,v3.9.0,v3.10.0,2,7,1,11,19,,,"CA/Browser Forum Code Signing BR version-history aggregation, tabulated 2026-04-02","Per-section change classification across versions in window; aggregate auditable in source. Corpus measurements not yet ingested in v0.2.1."

@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite as below."
+title: "Organizational Compliance Capacity Under Continuous Normative Change"
+subtitle: "A model and methodology, with the Knowledge Currency Budget as the per-regime accounting unit"
+version: "0.1"
+date-released: "2026-04-28"
+url: "https://github.com/systematicreasoning/compliance-burden-index"
+repository-code: "https://github.com/systematicreasoning/compliance-burden-index"
+authors:
+  - family-names: "Hurst"
+    given-names: "Ryan"
+    affiliation: "Systematic Reasoning, Inc."
+abstract: >-
+  A model and methodology for measuring organizational compliance capacity
+  under continuous normative change in regimes with versioned and continuously-
+  communicated normative requirements. Uses the CA/Browser Forum stack
+  (TLS BR, S/MIME BR, NetSec, Code Signing BR, EV Guidelines) as the
+  principal measurement substrate, with 380 fully-classified per-section
+  change records.
+license: "Apache-2.0 AND CC-BY-4.0"
+keywords:
+  - compliance
+  - governance
+  - WebPKI
+  - certificate authority
+  - regulatory burden
+  - audit
+  - knowledge currency

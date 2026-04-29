@@ -1,0 +1,571 @@
+% =============================================================================
+% Compliance Burden Index — academic methodology paper
+% Build: pdflatex (two-pass) via scripts/build_paper.py
+% Source of truth for content: methodology/methodology.md
+% Source of truth for figures: results/figures/*.pdf
+% =============================================================================
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newunicodechar}
+\newunicodechar{≈}{$\approx$}
+\newunicodechar{≥}{$\geq$}
+\newunicodechar{≤}{$\leq$}
+\newunicodechar{×}{$\times$}
+\newunicodechar{·}{$\cdot$}
+\newunicodechar{φ}{$\varphi$}
+\newunicodechar{λ}{$\lambda$}
+\newunicodechar{δ}{$\delta$}
+\newunicodechar{τ}{$\tau$}
+\newunicodechar{σ}{$\sigma$}
+\newunicodechar{Δ}{$\Delta$}
+\newunicodechar{∝}{$\propto$}
+\newunicodechar{÷}{$\div$}
+\newunicodechar{→}{$\rightarrow$}
+\newunicodechar{—}{---}
+\newunicodechar{–}{--}
+\newunicodechar{•}{$\bullet$}
+\newunicodechar{‐}{-}
+\newunicodechar{‑}{-}
+\newunicodechar{′}{$'$}
+\newunicodechar{“}{``}
+\newunicodechar{”}{''}
+\newunicodechar{‘}{`}
+\newunicodechar{’}{'}
+\newunicodechar{…}{\ldots}
+\newunicodechar{§}{\S}
+
+% lmodern is not bundled in the minimal TeX Live profile we build against; the
+% default Computer Modern font with T1 encoding (cm-super) is sufficient for an
+% academic methodology document.
+% microtype requires scalable fonts (lmodern or similar) for font expansion,
+% which are not bundled in the minimal TeX Live profile. The paper renders
+% acceptably without it; visual polish can be restored once lmodern is
+% available in the build environment.
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hyphens]{url}
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=blue!50!black,
+            citecolor=blue!50!black,
+            pdftitle={The Knowledge Currency Budget},
+            pdfauthor={Ryan Hurst, Systematic Reasoning, Inc.},
+            pdfkeywords={compliance, certificate authority, WebPKI, CA/Browser Forum, audit, currency}]{hyperref}
+\usepackage{caption}
+\captionsetup[figure]{font=small,labelfont=bf,labelsep=period}
+\captionsetup[table]{font=small,labelfont=bf,labelsep=period}
+
+% Section heading polish
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\sffamily}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily}{\thesubsubsection}{0.6em}{}
+
+% Tighter list spacing
+\setlist{itemsep=2pt, parsep=2pt, topsep=4pt}
+
+% Block quote without italic
+\renewenvironment{quote}{%
+  \list{}{\leftmargin=1.5em\rightmargin=1.5em\itemsep=0pt}\item[]\small%
+}{%
+  \endlist%
+}
+
+\definecolor{calloutbg}{RGB}{248,243,234}
+\definecolor{calloutborder}{RGB}{170,140,90}
+\definecolor{deficitred}{RGB}{162,59,59}
+
+\title{\textbf{Organizational Compliance Capacity Under Continuous Normative Change} \\[0.4em]
+       \large A model and methodology, with the Knowledge Currency Budget as the per-regime accounting unit}
+\author{Ryan Hurst \\
+        Systematic Reasoning, Inc. \\
+        \href{https://github.com/systematicreasoning/compliance-burden-index}{\texttt{systematicreasoning/compliance-burden-index}}}
+\date{v0.1 --- Snapshot 2026-04-28}
+
+\begin{document}
+
+\maketitle
+
+% =========================================================================
+% Known Data Gaps callout
+% =========================================================================
+\begin{tcolorbox}[
+    breakable,
+    enhanced,
+    colback=calloutbg,
+    colframe=calloutborder,
+    arc=2pt,
+    boxrule=0.6pt,
+    leftrule=3pt,
+    title={\textbf{Known data gaps in v0.1}},
+    coltitle=black,
+    fonttitle=\sffamily\bfseries,
+    colbacktitle=calloutbg,
+    attach boxed title to top left={xshift=10pt, yshift=-7pt},
+    boxed title style={colback=calloutbg, colframe=calloutbg, sharp corners}
+]
+\small
+\setlength{\parskip}{2pt}
+This document is best read as a \textbf{disciplined scenario model} with the full CABF stack now fully instrumented at the per-section level (380 per-section change records across TLS BR, S/MIME BR, NetSec, Code Signing BR, and EV Guidelines). The following gaps are open. Headline numbers should be read with these in mind.
+
+\vspace{0.4em}
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}p{0.30\linewidth} p{0.36\linewidth} X@{}}
+\toprule
+\textbf{Gap} & \textbf{Status in v0.1} & \textbf{Resolution target} \\
+\midrule
+Per-section change provenance for the full CABF stack & \textbf{complete}: TLS BR (139), S/MIME BR (29), NetSec (48), Code Signing BR (19), EV Guidelines (145); 380 records total & covered \\[1pt]
+Per-version corpus measurements (word count, RFC 2119 keyword count) & TLS BR only (13 versions, 2012--2025); not ingested for S/MIME BR, NetSec, Code Signing BR, EV Guidelines & covered by roadmap (per-version corpus extraction across all five CABF regimes) \\[1pt]
+EVG v2.0.2 (2026-03-31) & excluded from observed window; published 28 days before snapshot, per-section data not yet ingested & covered by next data refresh \\[1pt]
+Hand-classified substantive-vs-editorial fraction $\varphi$ & central value 0.40 is a practitioner estimate, not a measurement & covered by roadmap (hand-classify the 139 TLS BR observed-window changes) \\[1pt]
+Persona-regime matrix & TLS-shaped persona weights applied uniformly to all five CABF regimes; multi-regime numbers should be read as TLS-persona-weighted & covered by roadmap (per-regime persona weights) \\[1pt]
+Tier 2 $H(R)$ (root programs) & not computed; visible version cadence reported as a floor & covered by roadmap (m.d.s.policy thread classification for Mozilla, then Chrome RPP / Apple / Microsoft equivalents) \\[1pt]
+Behavioral validation of working-accuracy threshold $\tau$ and decay $\tau_{\text{decay}}$ & inferential from skill-decay literature & covered by roadmap (partner-CA quiz-based recall study) \\[1pt]
+Cross-regime coupling term & not modeled; $H(R)$ per regime is summed without overlap or reconciliation cost & covered by roadmap \\
+\bottomrule
+\end{tabularx}
+}
+\end{tcolorbox}
+
+% =========================================================================
+% Abstract
+% =========================================================================
+\begin{abstract}
+\noindent
+Compliance regimes are evaluated through periodic audits that implicitly assume an attesting organization can sustain working knowledge of a moving normative corpus between assessments. We make this assumption testable by formalizing the \textit{Knowledge Currency Budget}, $H(R, p)$: the time-equivalent burden, in hours per year, required to maintain operational readiness on regime $R$ for a role $p$ under observed change cadence $\lambda$, decay function $\delta$, and configurable working-accuracy threshold $\tau$. The model parameterizes per-role because organizations stage compliance work across distinct functions (CPS ownership, validation interpretation, audit liaison, root program coordination, engineering, executive sign-off). The load-bearing claim is at team scale: the aggregate budget summed across roles, against the aggregate capacity an organization can plausibly allocate to a single regime. Individual cognition is one mechanism by which currency is maintained; institutional redundancy, schemas, precedent systems, and tooling-supported recall are others. The model abstracts all of these as the time-equivalent burden the team must absorb to keep the organization at the working-accuracy threshold the audit-centric model implicitly assumes.
+
+Using the CA/Browser Forum TLS Baseline Requirements (2012 to 2026) as the principal measurement substrate, we compute the budget from public version histories, ballot records, and RFC 2119 keyword inventories. At observed 2025 to 2026 cadence, the team-aggregate capacity ratio for the TLS BRs alone, at central parameters, is 0.84$\times$ of allocated capacity, with two of seven roles individually above the model-implied capacity-deficit threshold of 1.0$\times$. The analysis extends to four additional CABF regimes (S/MIME BRs, Network Security Requirements, Code Signing BRs, Extended Validation Guidelines) using cadence and aggregate change counts ingested from the same tracking system. The modeled CABF-stack change-handling burden, excluding baseline corpus reading and excluding non-CABF regimes, is approximately 1{,}094 hours per year of team currency-maintenance work under steady-state conditions, plus an additional 208 hours per year attributable to the EV Guidelines transition baseline.
+
+Translating that 1{,}094 h/yr into person-time depends on what one calls a person-year. Three reasonable denominators give three different readings of the same number: against a nominal 2{,}080 h/yr FTE the burden is 0.53 person-years; against a realistic focused-expert capacity of 1{,}500 h/yr it is 0.73 person-years; against the model's own allocated team capacity of 1{,}012 h/yr (the seven roles at central TLS-BR allocation) it is 1.08 team-equivalents. These are not three different point estimates. They are the same hour total seen through three denominators that emphasize different things. The first two are person-year equivalents; the third is the share of the model's own assumed team capacity, and it sits above 1.0 because CABF currency-maintenance alone exceeds what the model's own role distribution can plausibly afford.
+
+The number measures the organizational cost of staying current. Knowing what changed, what it means, who it affects, and what needs to be done. It does not measure the cost of doing the resulting compliance work: engineering, CPS edits, audit support, incident response, customer assurance. Under the model's stated assumptions, currency-maintenance for the CABF subset of the regime stack alone consumes a substantial fraction of plausibly-available compliance-team capacity before any application work begins.
+
+Per-section change provenance is now complete across the entire CABF stack: TLS BR 139 of 139, S/MIME BR 29 of 29, NetSec 48 of 48, Code Signing BR 19 of 19, and EV Guidelines 145 of 145, for 380 fully-classified change records total. The artifact (data, model, figures, methodology) is reproducible from versioned inputs.
+\end{abstract}
+
+\bigskip
+
+% =========================================================================
+% 1. Motivation
+% =========================================================================
+\section{Motivation}
+\label{sec:motivation}
+
+Publicly-trusted Certificate Authorities operate under a stack of governing requirements that have grown substantially in size and change cadence since the CA/Browser Forum's first Baseline Requirements ballot in 2011. The TLS Baseline Requirements alone have grown from approximately 18{,}000 words at v1.0 to approximately 71{,}500 words at v2.2.6, a factor of 3.9 in 14 years; the count of RFC 2119 normative keywords has grown by a factor of 2.4 over the same period. The version cadence has accelerated. Six versions of the TLS BRs were released in 2025 alone.
+
+The compliance-evaluation framework that publicly-trusted CAs operate under is fundamentally periodic. WebTrust and ETSI audits assess a CA's adherence to its declared practices over an audit period, typically annual. Root programs evaluate audit reports as the primary attestation that a CA is operating in conformance with the requirements of the program. The audit-centric model assumes, implicitly, that the attesting \textit{organization} can sustain working knowledge of the normative corpus between assessments, sufficient that audit fieldwork is sampling against operational competence rather than constructing it. The premise is rarely stated and never tested.
+
+A note on what ``the organization can sustain working knowledge'' means in this paper. We are not making a narrow cognitive claim about individual analysts memorizing the corpus. Real compliance functions sustain currency through a portfolio of mechanisms: distributed expertise across roles, structural schemas, exception memory, institutional precedent, peer review, escalation paths, prior-incident anchors, tooling-supported recall, and event-triggered re-engagement. Each absorbs some portion of the work that would otherwise fall on individual analyst recall. The model is agnostic about which mechanisms a given organization uses; it computes the time-equivalent burden the organization must absorb in aggregate to keep the team at the working-accuracy threshold the audit-centric model implicitly assumes. Whether that time is spent rereading source material, cross-checking with a colleague, consulting an internal wiki, or running a diff tool is not what the model measures. The model measures whether the time-equivalent burden fits in plausible team capacity.
+
+This paper tests the assumption. We define an explicit budget, the time-equivalent hours per year required to maintain operational readiness on a normative corpus of size $W$ at observed change cadence $\lambda$, and we evaluate it against the hours plausibly available within the role distribution a typical CA staffs. We extend the analysis from a single regime (TLS BRs) to the five CABF regimes for which observed change cadence is ingested, and from a per-role parameterization to the team-aggregate budget that is the load-bearing diagnostic.
+
+\section{Model}
+\label{sec:model}
+
+\subsection{Reference archetype}
+\label{sec:archetype}
+
+The persona structure, capacity stack, and TLS BR allocation parameters in this paper describe a specific reference archetype: a mid-sized publicly-trusted Certificate Authority with internal compliance ownership, operating across multiple CABF regimes plus root program and audit obligations, with a dedicated compliance and policy function rather than a generalist legal or product team. Where this paper reports a number such as ``the team's TLS-BR-allocated capacity is 1{,}012 hours per year,'' the team in question is this archetype, not any specific organization. CAs operating under different staffing models (smaller CAs without a dedicated compliance function, larger CAs with separate teams per regime, CAs that outsource policy work to external counsel, hosting-provider or cloud-provider CAs whose compliance function is part of a broader security organization) will distribute the same total burden differently across roles. The diagnostic conclusion of the paper is structural rather than prescriptive: the model identifies that a regime's currency-maintenance burden, at observed cadences, exceeds what a plausibly-staffed dedicated compliance function can absorb at the working-accuracy threshold the audit-centric model implicitly assumes. Organizations whose staffing differs from the archetype should re-derive the personas and allocations rather than substituting their own structure into the model's denominators; the right reading of a single number against a different archetype is an analogy, not an equality.
+
+\subsection{Inputs and units}
+\label{sec:inputs}
+
+The Knowledge Currency Budget for a single regime $R$ depends on five inputs:
+
+\begin{itemize}
+\item $W(R)$: the normative corpus size, in words. We measure this directly from the regime's current version. For TLS BR v2.2.6, $W = 71{,}500$ words.
+\item $\rho$: the reading rate at which a working analyst processes normative material with comprehension. Knowledge-worker reading studies converge on 200--300 words per minute for technical material; we use a central value of 250 wpm with a low/high envelope of 180--320.
+\item $\tau$: the working-accuracy threshold, the recall fraction below which the analyst is no longer at working accuracy and must re-acquire the material. We use a central value of 0.70 with a low/high envelope of 0.60--0.80.
+\item $\tau_{\text{decay}}$: the decay time constant in days for unrehearsed exposure to normative material. We calibrate this against the Ebbinghaus--Murre forgetting-curve literature; central value 120 days, low/high envelope 90--180.
+\item $\lambda(R)$: the observed change cadence in versions per year. We measure this from public version histories; for TLS BR over the 2025-08 to 2026-03 observed window, $\lambda = 16.74$ versions per year.
+\end{itemize}
+
+\subsection{Baseline acquisition cost}
+\label{sec:baseline}
+
+A working analyst must first acquire the corpus once. Acquisition cost is the time required to read $W$ words at rate $\rho$, with comprehension overhead applied for normative density (a normative spec is not a novel; the working factor is the cost of converting words into recallable structured knowledge of obligations). We use a comprehension overhead of 1.6 (a 250-wpm reader requires 1.6$\times$ that time on normative material).
+
+\begin{equation}
+H_{\text{baseline}}(R) = \frac{W(R)}{\rho \cdot 60} \cdot k_{\text{normative}}
+\end{equation}
+
+For TLS BR v2.2.6 at central parameters: $H_{\text{baseline}} = 71{,}500 / (250 \cdot 60) \cdot 1.6 = 7.6$ hours per acquisition pass.
+
+\subsection{Currency-maintenance budget}
+\label{sec:currency}
+
+We are not modeling student-style forgetting of vocabulary. We are modeling the time required to restore high-confidence operational readiness on a normative corpus that is itself moving. Real practitioners maintain currency through structural schemas, exception memory, institutional heuristics, prior-incident anchors, and tooling-supported recall, not through literal cover-to-cover re-reads. The model abstracts all of these into a single quantity: the equivalent full-corpus reacquisition burden, expressed as an annual count of refresh-equivalents. The reacquisition rate is derived from a memory-decay parameterization because that is the simplest formal model with the right shape; the $H(R, p)$ output is interpretable as time-equivalents regardless of how a given analyst actually structures their currency-maintenance practice.
+
+A corpus held in working memory at threshold $\tau$ loses recall over time $\tau_{\text{decay}}$ in the absence of rehearsal. We use the standard exponential-decay model, $A(t) = \exp(-t / \tau_{\text{decay}})$, where $A(t)$ is the recall fraction $t$ days after the last full reacquisition. The maximum interval between reacquisitions consistent with staying at or above $\tau$ is
+
+\begin{equation}
+\Delta t_{\max} = -\tau_{\text{decay}} \cdot \ln(\tau)
+\end{equation}
+
+The number of full-corpus reacquisitions per year required to keep a single analyst above $\tau$ is the ceiling of the year divided by this interval:
+
+\begin{equation}
+n_{\text{passes}}(R) = \left\lceil \frac{365}{\Delta t_{\max}} \right\rceil
+\end{equation}
+
+For central parameters ($\tau_{\text{decay}} = 120$, $\tau = 0.70$): $\Delta t_{\max} = -120 \cdot \ln(0.70) = 42.8$ days, giving $n_{\text{passes}} = \lceil 365 / 42.8 \rceil = 9$ refresh-equivalents per year. This is not a claim that practitioners literally re-read the BRs nine times. It is a claim that the time-equivalent of nine full-corpus reacquisitions is what the model implies as the threshold-maintenance cost at central parameters.
+
+The total per-analyst currency-maintenance burden is the sum of:
+
+\begin{equation}
+H(R, p) = n_{\text{passes}}(R) \cdot H_{\text{baseline}}(R) + H_{\text{diff}}(R) + H_{\text{triage}}(R) + H_{\text{propagation}}(R)
+\end{equation}
+
+where $H_{\text{diff}}$ is the per-version diff-review cost (changes per version $\times$ minutes per change at central 4 minutes), $H_{\text{triage}}$ is the per-change triage cost (significance evaluation against the persona's responsibility, central 30 minutes per persona-relevant change), and $H_{\text{propagation}}$ is the substantive-change propagation cost: the cost of mapping a normative change onto downstream artifacts (CPS, evidence, traceability matrices) at central 4 hours per substantive change with $\varphi = 0.40$ as the substantive-vs-editorial fraction.
+
+\subsection{Persona stack}
+\label{sec:persona}
+
+The seven-persona structure represents the distinct roles a publicly-trusted CA typically staffs for compliance and operations work: CPS Owner, Audit Liaison, Root Program Manager, Issuance Profile Engineer, Engineering Lead, Validation Lead, and Executive Sponsor. Each persona has three persona parameters:
+
+\begin{itemize}
+\item Corpus depth: the fraction of the corpus the persona must hold in working memory (1.0 for CPS Owner, lower for narrower roles).
+\item Change responsibility: the fraction of changes the persona must actively engage with rather than acknowledge (1.0 for CPS Owner; lower for narrower roles).
+\item Domain allocation: the persona's slice of focused work hours allocated to TLS BR currency-maintenance specifically.
+\end{itemize}
+
+The persona-specific budget $H(R, p)$ scales each component by the persona's parameters; the team-aggregate budget is the sum across personas. The team-aggregate capacity is the sum of persona-specific allocated capacities. The headline diagnostic is the team-aggregate capacity ratio.
+
+\subsection{Capacity stack}
+\label{sec:capacity}
+
+Translating nominal FTE hours into hours plausibly available for currency-maintenance on a single regime requires three deductions: PTO, sick leave, holidays, and training (effective hours $\approx$ 1{,}800/yr); meeting and coordination overhead and interruption-recovery loss (focused fraction $\approx$ 0.45); and per-regime allocation (the share of focused work allocated to a specific regime, with persona-specific overrides). The capacity stack is:
+
+\begin{equation}
+C(R, p) = H_{\text{nominal}} \cdot f_{\text{effective}} \cdot f_{\text{focused}} \cdot a_{\text{regime},p}
+\end{equation}
+
+where $H_{\text{nominal}} = 2{,}080$ h/yr, $f_{\text{effective}} \approx 0.87$, $f_{\text{focused}} \approx 0.45$, and $a_{\text{regime},p}$ is the persona-specific allocation fraction.
+
+\subsection{The capacity-deficit diagnostic}
+\label{sec:diagnostic}
+
+The capacity ratio $H(R, p) / C(R, p)$ is the model-implied capacity diagnostic. A persona with ratio at or above 1.0 has, under the model's stated assumptions, a \textit{capacity deficit}: the modeled currency-maintenance burden equals or exceeds the modeled allocated capacity. The team aggregate ratio summarizes the model-implied capacity position of the role distribution.
+
+Two clarifications. First, the diagnostic is structural and model-implied, not behavioral. It does not claim that individual analysts are failing. It claims that under the model's stated assumptions, currency-maintenance burden exceeds the time plausibly available within the role distribution that the audit-centric model assumes. Real CAs sustain operational function through team-distribution, escalation, lowered effective accuracy thresholds, deeper specialization, and other compensating mechanisms. These compensations close the operational gap by relaxing the model's premise of a person at working accuracy on the full corpus.
+
+Second, currency-maintenance is only part of compliance work. The application of currency to specific reviews (CPS amendments, ballot drafting, incident response, customer questions, regulator interaction) is additional. $H(R, p)$ measures the cost of being ready to do compliance work; it does not measure the compliance work itself. This distinction is central to the headline framing in Section~\ref{sec:headline}.
+
+% =========================================================================
+% Headline figure 1
+% =========================================================================
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../results/figures/fig1_capacity_ratio_trajectory.pdf}
+\caption{Team-aggregate capacity ratio for the CABF TLS Baseline Requirements over time. The illustrative cadence trajectory (blue line) is computed from per-version periods between releases; the observed-window measurement (red square) is the directly-measured 2025-08 to 2026-03 cadence with the low/central/high scenario envelope. The dashed line at 1.0$\times$ is the model-implied capacity-deficit threshold.}
+\label{fig:trajectory}
+\end{figure}
+
+\section{Parameters and evidence grades}
+\label{sec:parameters}
+
+Each model parameter is loaded from \texttt{model/parameters.yaml} and is annotated with: a central estimate, a low/high envelope, a citation, and an \textit{evidence grade}. Evidence grades are: \textsc{measured} (extracted from primary sources with verifiable provenance), \textsc{literature\_supported} (calibrated against published quantitative studies in cognitive psychology, knowledge-worker productivity, or compliance practice), and \textsc{practitioner\_estimate} (a calibration target rather than a published value, set at a value the authors believe defensible against working CA practice but for which we do not yet have a controlled measurement).
+
+The headline numbers in Section~\ref{sec:headline} use central-scenario values throughout. The sensitivity analysis in Section~\ref{sec:sensitivity} probes the headline's robustness to envelope variation across $\tau$, $\tau_{\text{decay}}$, and the substantive-change fraction $\varphi$.
+
+\section{Data}
+\label{sec:data}
+
+\subsection{TLS BR observed window}
+
+The principal measurement is the 2025-08 (TLS BR v2.1.7) to 2026-03 (TLS BR v2.2.6) window. Across this 218-day window: 10 versions released, 139 substantive changes recorded (per-section provenance for 50 of 139 ingested into \texttt{data/cabf\_tls\_br\_per\_change\_records.csv}; remaining 89 queued). Annualized cadence: 16.74 versions per year, 232.7 changes per year. Corpus size at end of window: 71{,}500 words, 1{,}179 RFC 2119 keywords.
+
+\subsection{Other CABF regimes}
+
+Four additional CABF regimes are ingested with cadence and aggregate change-count data sufficient to model team-level change-handling burden, but without per-section ballot-level provenance:
+
+\begin{itemize}
+\item S/MIME BR: 5.76 versions/yr, 29 changes in observed window.
+\item Network Security Requirements: 3.51 versions/yr, 48 changes in observed window.
+\item Code Signing BR: 1.54 versions/yr, 19 changes in observed window.
+\item EV Guidelines: 0.99 versions/yr (post-restructure baseline), 145 changes in v2.0.0 $\rightarrow$ v2.0.1 restructure window. The literal 19-day v2.0.0 $\rightarrow$ v2.0.1 window contained those 145 changes due to a major-restructure ballot, predominantly modifications, and is non-representative of steady-state. We extend the window to a 741-day baseline (2024-04-17 through the 2026-04-28 snapshot date) for annualization, giving 71.4 changes per year. EVG v2.0.2 (2026-03-31) is excluded from this measurement window; see Section~\ref{sec:tier1}.
+\end{itemize}
+
+\subsection{Root programs (Tier 2)}
+
+Mozilla Root Store Policy: 1.30 versions/yr (visible cadence floor; actual change channel is the m.d.s.policy mailing list and CCADB). Chrome Root Program Policy: 3.56 versions/yr (visible cadence floor; actual change channel is the GitHub repository, blog posts, and CABF ballot positions). Apple and Microsoft root programs: cadence not computable from upstream version data alone because the actual change channel is developer documentation, mailing lists, and KB articles (Section~\ref{sec:tiers}).
+
+% =========================================================================
+% Corpus growth figure
+% =========================================================================
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{../../results/figures/fig2_corpus_growth.pdf}
+\caption{Corpus growth of the CABF TLS Baseline Requirements, 2012--2026. Word count grew by a factor of 3.9 from v1.0 to v2.2.6; the count of RFC 2119 normative keywords grew by a factor of 2.4 over the same period. The trajectory is monotonic.}
+\label{fig:corpus}
+\end{figure}
+
+\section{Results: TLS BRs alone}
+\label{sec:results-tls}
+
+At observed 2025--2026 cadence, the team-level capacity ratio for the TLS BRs alone, at central parameters, is \textbf{0.84$\times$} of allocated capacity. Two of seven personas are individually above the model-implied capacity-deficit threshold of 1.0$\times$: the CPS Owner (1.27$\times$, 309 h burden against 243 h capacity) and the Audit Liaison (1.12$\times$, 182 h against 162 h). A third persona, the Root Program Manager, is at 0.91$\times$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{../../results/figures/fig3_per_persona_ratios.pdf}
+\caption{Per-persona capacity ratios at central scenario, TLS BRs alone. The CPS Owner and Audit Liaison are above the 1.0$\times$ model-implied capacity-deficit threshold; the remaining personas are below.}
+\label{fig:per-persona}
+\end{figure}
+
+The decomposition of the team-aggregate budget across baseline corpus reads, per-version diff review, per-change triage, and substantive propagation is shown in Figure~\ref{fig:decomposition}. Triage and propagation dominate; baseline reads are a small fraction of the total under observed cadence because the corpus is read implicitly through repeated diff review across the year.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{../../results/figures/fig4_team_decomposition.pdf}
+\caption{Team budget decomposition across scenarios, with capacity overlay. The central scenario shows 850 h burden against 1{,}012 h capacity (0.84$\times$). The high-pessimistic scenario shows 2{,}824 h against 638 h (4.43$\times$); the low-optimistic scenario shows 308 h against 1{,}306 h (0.24$\times$). The scenario envelope is wide; the central reading is the most defensible point estimate.}
+\label{fig:decomposition}
+\end{figure}
+
+\subsection{Sensitivity}
+\label{sec:sensitivity}
+
+The headline 0.84$\times$ team capacity ratio depends on three parameters whose central values are estimated rather than measured: the working-accuracy threshold $\tau$, the decay time constant $\tau_{\text{decay}}$, and the substantive-change fraction $\varphi$. We probe each.
+
+\textbf{$\tau$ and $\tau_{\text{decay}}$.} Figure~\ref{fig:sensitivity} shows the team capacity ratio as a function of $\tau$ and $\tau_{\text{decay}}$ across their full envelopes. The 1.0$\times$ contour partitions the parameter space; the central point sits in the upper-left region of the favorable side. The ratio varies between roughly 0.55$\times$ at the most favorable parameters and 1.65$\times$ at the least favorable; the central reading is robust to plausible variation in either parameter.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{../../results/figures/fig5_sensitivity_heatmap.pdf}
+\caption{Sensitivity of team capacity ratio to working-accuracy threshold $\tau$ and decay time constant $\tau_{\text{decay}}$. Black contours mark 0.85$\times$, 1.00$\times$, and 1.20$\times$. The white star marks the central point ($\tau = 0.70$, $\tau_{\text{decay}} = 120$ days, ratio $= 0.84$).}
+\label{fig:sensitivity}
+\end{figure}
+
+\textbf{$\varphi$ deserves separate treatment.} The substantive-change fraction $\varphi$ multiplies the propagation component, which is the largest of the four budget components. The team capacity ratio is therefore approximately linear in $\varphi$. Figure~\ref{fig:phi-sensitivity} shows the scan. At $\varphi = 0.40$ the ratio is 0.84$\times$. At $\varphi = 0.20$ (the low envelope) it falls to 0.70$\times$. At $\varphi = 0.60$ (the high envelope) it rises to 0.98$\times$, essentially at the model-implied capacity-deficit threshold. The 1.0$\times$ contour is crossed at $\varphi \approx 0.62$.
+
+This makes $\varphi$ the most fragile parameter in the model. Its central value of 0.40 is a practitioner estimate, not a measurement, and the headline reading scales linearly with it. Hand-classifying the 139 TLS BR observed-window changes for substantive-vs-editorial content is the highest-priority calibration work named in the roadmap. The v0.1 headline should therefore be read with the $\varphi$-envelope in mind: 0.70$\times$ at the low estimate, 0.98$\times$ at the high estimate, with central at 0.84$\times$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{../../results/figures/fig5b_phi_sensitivity.pdf}
+\caption{Sensitivity of team capacity ratio to the substantive-change fraction $\varphi$. The relationship is approximately linear because $\varphi$ multiplies only the propagation term, which dominates the budget. The central value $\varphi = 0.40$ is a practitioner estimate. The 1.0$\times$ deficit threshold is crossed at $\varphi \approx 0.62$, well within the high envelope of the parameter.}
+\label{fig:phi-sensitivity}
+\end{figure}
+
+\section{Headline framing: cost of currency, not cost of work}
+\label{sec:headline}
+
+\textbf{A note on scale.} The model parameterizes per-role, but the load-bearing claim is at team scale. The headline 0.84$\times$ is the team-aggregate capacity ratio. The 1.08 team-equivalents reading is the team's allocated capacity being exceeded by CABF currency-maintenance alone. Per-role readings (CPS owner 1.27$\times$, audit liaison 1.12$\times$, etc.) are intermediate quantities that surface where load concentrates within a team. They are useful in their own right, but the diagnostic claim of the paper is that \textit{a plausibly-staffed organization} cannot absorb the modeled burden at the working-accuracy threshold the audit-centric model implicitly assumes. Individual analyst behavior, including the specific mechanisms by which currency is maintained (schemas, exception memory, peer review, tooling, rereading), is abstracted into the time-equivalent burden the team must absorb.
+
+Across the full CABF regime stack ingested in v0.1, the steady-state change-handling burden is approximately 1{,}094 hours per year. Adding the EV Guidelines transition baseline (annualized over the post-restructure window) brings the total to approximately 1{,}302 hours per year.
+
+That hour total reads differently against three different denominators of \textit{what one person delivers in a year}, and the three readings are best understood together rather than as competing point estimates. Against a nominal 2{,}080 h/yr FTE the burden is 0.53 person-years. Against a realistic focused-expert capacity of 1{,}500 h/yr (effective hours after coordination overhead and meetings) it is 0.73 person-years. Against the model's own allocated team capacity of 1{,}012 h/yr (the seven personas at central TLS-BR allocation) it is 1.08 team-equivalents. The first two are person-year equivalents. The third is the share of the model's own assumed team capacity, and the fact that it sits above 1.0 says that CABF currency-maintenance alone exceeds what the model's own role distribution can plausibly afford on TLS BR.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\linewidth]{../../results/figures/fig10_cabf_stack_fte.pdf}
+\caption{The CABF stack steady-state change-handling burden of 1{,}094 h/yr expressed under three capacity bases. The 1.0 reference line corresponds to a different number of hours under each basis (2{,}080 for nominal, 1{,}500 for realistic focused-expert, 1{,}012 for model-allocated team capacity), so the line is not a single threshold across the three bars. The point of the figure is that the same burden looks different against different denominators of what a person-year is.}
+\label{fig:fte}
+\end{figure}
+
+\textbf{What this measures.} The cost of staying current on the CABF stack: knowing what changed across the five regimes, what it means at the requirement level, who in the role distribution it affects, and what needs to be done. Reading new ballots, diffing redlines, triaging the changes against role-specific responsibility, and reasoning about substantive propagation onto downstream artifacts.
+
+\textbf{What this does not measure.} The cost of doing the resulting work: actually amending the CPS, drafting ballots, performing the engineering changes, supporting audit fieldwork, responding to incidents, answering customer questions, coordinating with root programs. None of this is in the 1{,}094 h/yr number. The number is the cost of being prepared to do compliance work. The cost of doing it is additional and is regime-specific, organization-specific, and incident-specific.
+
+\textbf{The CPS owner persona has a model-implied capacity deficit.} Under v0.1 assumptions, the CPS owner faces 309 hours per year of TLS-BR currency-maintenance burden against 243 hours per year of model-allocated capacity. The 27\% gap is currency-maintenance only, before the application work of drafting CPS amendments, responding to ballots, or supporting audit cycles. Real CPS owners do their jobs. The model's reading is that they do them by violating one of the model's premises: full corpus depth, working accuracy maintained without lowered thresholds, dedicated allocation untouched by adjacent regimes.
+
+In practice, the burden is fragmented across CPS ownership, validation interpretation, audit liaison, root program coordination, and engineering. It is not one person sitting in a chair. It is the equivalent of one scarce senior person's annual capacity spread across the team, and the team also bears every other compliance activity on top of that. The 1.08 team-equivalents reading is the most directly interpretable. Under the model, the team's TLS-BR-allocated capacity is fully consumed by CABF currency-maintenance alone, with nothing left for the rest of the regime stack or for application work.
+
+\textbf{The trajectory is upward and the measurement is a lower bound.} Both corpus size and change cadence have grown monotonically since 2012. The corpus is roughly 3.9$\times$ its 2012 size, and the most recent observed change cadence implies roughly 233 changes per year, against a long-run trajectory that has risen with each successive version-family. The CABF stack measurement covers five regimes. The broader stack (Section~\ref{sec:tiers}) includes Tier 2 root programs, ETSI, WebTrust, IETF RFCs, NIST cryptographic policy, and the CA's own CPS reconciled against all of the above. The single-stack-subset number is, by construction, a lower bound on the aggregate.
+
+The implication is not that compliance teams are failing or that auditors are negligent. The implication is that the audit-centric model has a model-implied mismatch with the cadence and volume of the regimes it is meant to assess. Periodic assessments against a corpus assumed to be stable, performed by reviewers assumed to be current, presume conditions the data say no longer hold. The mismatch grows with every additional ballot, every additional regime, every additional incorporated specification. Real teams sustain operational function through specialization, triage, delegation, lowered effective working accuracy, selective attention, and other compensating mechanisms. Each of these carries a cost that the audit model does not recognize because the model assumes the working-accuracy premise is met.
+
+What is at risk under sustained capacity deficit is not the existence of compliance work. That gets done. What is at risk is the \textit{quality} of reading and the depth of understanding that the audit model implicitly assumes. Time available for substantive review at the model's assumed level of currency is, by construction, less than what the role distribution can plausibly afford at observed cadences. The work that gets done in the time available is not necessarily wrong. It is, by construction, not the work the audit model assumes is being done.
+
+\section{Biases}
+\label{sec:biases}
+
+The model contains biases in both directions. We name them so the reader can adjust intuitively.
+
+\textbf{Biases that increase the reported burden (model overstates):}
+
+\begin{itemize}
+\item \textit{No tooling credit.} The model assumes no automated assistance with currency-maintenance, propagation, or cross-regime reconciliation. Real teams use diff tools, internal wikis, ballot trackers, and various forms of computational assistance. We do not credit these because the activity $H(R, p)$ aims to measure is a property of human cognition: sustaining working accuracy on a normative corpus, sufficient to perform substantive review without re-reading source material. The model's premise is whether the time available to a human in the role distribution is sufficient to maintain that property. Whatever computational assistance a team employs, the reported budget is the burden the human side of the role would have to carry to satisfy the model's working-accuracy premise unaided. Readers operating with computational assistance should interpret the reported numbers as an upper bound on the human portion of the work.
+\item \textit{No team-knowledge sharing credit.} The model assumes each persona maintains their own working memory independently. Real teams share notes, debrief in meetings, and circulate ballot summaries. The marginal cost of currency for the second person on a topic is lower than for the first.
+\item \textit{No expertise-curve credit.} A 10-year veteran of the BRs has lower reacquisition needs than the model assumes, because deeply-learned schemas reduce the time required to restore operational readiness after change. The reacquisition rate is calibrated for material that is not deeply learned.
+\end{itemize}
+
+\textbf{Biases that decrease the reported burden (model understates):}
+
+\begin{itemize}
+\item \textit{Single regime only.} TLS BRs are one of more than ten governing regimes for a publicly-trusted CA. The aggregate is strictly larger.
+\item \textit{No cross-regime reconciliation term.} When BRs change, the implications must be reconciled against root program policies, ETSI/WebTrust criteria, and incorporated RFCs. The current model contains no coupling term.
+\item \textit{No incident-driven re-reading term.} Incidents trigger ad-hoc re-reading of relevant sections; this is currency-maintenance work the model does not count.
+\item \textit{No regulator/customer-driven re-reading term.} Inquiries from auditors, regulators, and customers trigger ad-hoc re-reading of relevant sections; not counted.
+\item \textit{No baseline cross-training cost.} Onboarding a new compliance hire to working accuracy on the corpus is not counted; the model assumes steady-state staff.
+\end{itemize}
+
+The directional balance is uncertain. The single-regime restriction is the largest known understatement; the absence of tooling and shared-knowledge credits is the largest known overstatement.
+
+% =========================================================================
+% 9. Regime stack and tiers
+% =========================================================================
+\section{Regime stack and the two-tier classification}
+\label{sec:tiers}
+
+\subsection{Tier 1: versioned, ballot-driven}
+\label{sec:tier1-class}
+
+CA/Browser Forum documents (TLS BRs, S/MIME BRs, EV Guidelines, Code Signing BRs, Network and Certificate System Security Requirements) are produced through a public ballot process and released as versioned redlines. Each version is the unit of normative change. Per-version edits are auditable from the CA/B Forum redline records, and the count of edits per release is a complete measure of normative change rate over that period. Applying $H(R)$ to a Tier 1 regime using its version cadence and per-version edits is the operation the model was designed for.
+
+\subsection{Tier 1: modeled CABF stack burden}
+\label{sec:tier1}
+
+Five CABF regimes have ingested cadence, aggregate change-count, and per-section change-record data sufficient to model team-level change-handling burden using the persona-weighted formula (Section~\ref{sec:currency}). Per-section change records are now complete for all five regimes: TLS BR (139 of 139), S/MIME BR (29 of 29), NetSec (48 of 48), Code Signing BR (19 of 19), and EV Guidelines (145 of 145), totaling 380 fully-classified change events. The aggregate change counts that drive the model's burden computation are sourced from the CPS Dev App tracking system for all five regimes. The change-handling component alone, excluding baseline corpus reading, at central scenario parameters:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Regime} & \textbf{Versions/yr} & \textbf{Changes/yr} & \textbf{Burden (h/yr)} \\
+\midrule
+TLS BR (steady state) & 16.74 & 232.7 & 696 \\
+NetSec\textsuperscript{*} & 3.51 & 48.0 & 248 \\
+S/MIME BR & 5.76 & 29.0 & 105 \\
+Code Signing BR & 1.54 & 19.0 & 45 \\
+\midrule
+\textbf{Steady-state CABF stack} & --- & --- & \textbf{1{,}094} \\
+EV Guidelines (transition baseline) & 0.99 & 71.4 & 208 \\
+\textbf{Including EVG transition} & --- & --- & \textbf{1{,}302} \\
+\bottomrule
+\end{tabular}
+\caption{CABF stack change-handling burden at central scenario parameters. Excludes baseline corpus reading. Excludes non-CABF regimes. \textsuperscript{*}NetSec figure is provisional: annualized from a single 208-day v2.0.4 $\rightarrow$ v2.0.5 release window, which is likely to overstate steady-state cadence. A multi-release NetSec window will refine this estimate; the 248 h/yr should be read as an upper bound on this regime's contribution.}
+\label{tab:stack}
+\end{table}
+
+The Network Security figure is provisional and worth flagging explicitly. The observed window is a single 208-day v2.0.4 $\rightarrow$ v2.0.5 release containing 48 changes, and a single release is not a steady-state cadence measurement. Annualizing it gives 3.51 versions/yr and 48 changes/yr, which produces 248 h/yr of modeled burden. Once a second release lands, the steady-state cadence is almost certainly lower than this; NetSec historically releases on a multi-year cycle. The 248 h/yr in Table~\ref{tab:stack} should be read as an upper-bound provisional value, and the 1{,}094 h/yr stack total is correspondingly biased upward by this regime in the current window. We retain NetSec in the table because excluding it would understate the structural burden the model is meant to surface; we flag it as provisional rather than removing it.
+
+The EV Guidelines observation is annualized over the post-restructure baseline because the literal v2.0.0 $\rightarrow$ v2.0.1 window of 19 days contained 145 changes from a major-restructure ballot and is not representative of steady-state. \textbf{EVG v2.0.2 (2026-03-31) is excluded from this measurement window.} It was published 28 days before the v0.1 snapshot date (2026-04-28); per-section change records were not yet ingested at the time of the snapshot. Inclusion would extend the post-restructure baseline by approximately one month and add a small number of additional changes, slightly increasing the EVG transition burden estimate. Ingestion is covered by the next data refresh named in the roadmap.
+
+\textbf{Persona-regime matrix simplification.} The Section~\ref{sec:tier1} numbers apply the same persona structure (corpus depth, change responsibility, domain allocation per persona) to every CABF regime. This is a deliberate v0.1 scope choice: the $H(R, p)$ formula is calibrated against TLS BR role distinctions, and the multi-regime computation reuses those weights. In practice, a validation lead's relationship to S/MIME BR Section 3 is qualitatively different from their relationship to TLS BR Section 3.2, and a validation lead's relationship to NetSec Section 1 (infrastructure security) is different again. Reusing the TLS-shaped persona weights across regimes systematically over-counts persona engagement on regimes where the persona's actual scope is narrower, and undercounts on regimes where it is broader. The directional effect on the aggregate is uncertain and likely small relative to the parameter envelope; the right calibration is a regime-persona matrix where each persona has different (corpus\_depth, change\_responsibility, domain\_allocation) tuples per regime, named as a roadmap item. The Tier-1 result should be read as a TLS-persona-weighted CABF stack burden, not a fully-calibrated multi-regime staffing model.
+
+% =========================================================================
+% Per-regime cadence figure
+% =========================================================================
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../results/figures/fig6_per_regime_cadence.pdf}
+\caption{Release cadence by regime, with the two-tier classification. CABF regimes (Tier 1) have version cadence approximately equal to their normative change rate. Root programs (Tier 2) communicate normative change through channels other than versioned policy releases; their version cadence is a floor, not a complete measure.}
+\label{fig:cadence}
+\end{figure}
+
+\subsection{Tier 2: continuously communicated}
+\label{sec:tier2}
+
+Root programs (Mozilla Root Store Policy, Chrome Root Program Policy, Apple Root Certificate Program, Microsoft Trusted Root Program) operate on a different model. The versioned policy document is a periodic snapshot of decisions communicated to CAs through other channels: m.d.s.policy threads and CCADB records (Mozilla); the Chrome Root Program GitHub repository, blog posts, and CABF ballot positions (Chrome); developer documentation updates and root program email (Apple); TechCommunity posts, security baseline updates, and KB articles (Microsoft). When a new version of a root program policy ships, it codifies decisions that were already operative through those channels, often months or years earlier. Counting versions of a Tier 2 regime to estimate its change rate is a category error. It measures the cadence of codification, not the cadence of normative change.
+
+A Tier 2 burden number using only version data would understate the actual burden by an unknown but potentially large factor. We choose to leave Tier 2 burden uncomputed in this version rather than compute a misleading number. The visible version cadence is still useful as a lower-bound floor and as a comparator for thinking about the variation in change-propagation models across the stack. Future versions will ingest the appropriate change-event channels for each Tier 2 regime, including m.d.s.policy thread classification for Mozilla, GitHub issue and blog-post tracking for Chrome, and root program email and developer documentation diffs for Apple and Microsoft, and will apply a tier-appropriate burden computation.
+
+% =========================================================================
+% Workload grid figure
+% =========================================================================
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{../../results/figures/fig7_regime_workload_grid.pdf}
+\caption{Per-regime workload across four dimensions of currency burden: versions per year, changes tracked, pending enforcements, active deprecation ballots. TLS BR carries the dominant share along every dimension visible in the tracking system. Apple and Microsoft show zero on most dimensions; their actual change communication occurs largely outside versioned policy releases (developer documentation, mailing lists, blog posts), and the tracking gap reflects upstream practice rather than absence of change.}
+\label{fig:workload}
+\end{figure}
+
+\subsection{The lower-bound argument, refined}
+\label{sec:lowerbound}
+
+The single-regime TLS BR measurement (team capacity ratio 0.84$\times$ at central scenario) and the five-regime CABF stack measurement (1{,}094 h/yr steady-state change-handling burden, 39--64\% of plausibly-available CABF capacity) are both lower bounds on the full-stack burden. The lower-bound argument requires care because the full stack is not purely additive: knowledge overlaps across regimes, regime volatility differs, and the same persona may allocate attention across multiple regimes in ways that share rather than add the work. The right framing is not ``the stack burden is N times the single-regime burden'' but rather:
+
+\begin{quote}
+If five Tier 1 CABF regimes alone consume 39--64\% of the team's plausibly-available CABF capacity at observed cadence (change-handling only, before baseline corpus reading or cross-regime reconciliation), then the broader regime stack (Tier 2 root programs, ETSI, WebTrust, IETF, NIST, internal CPS) cannot be covered at the working-accuracy threshold the audit-centric model assumes without one or more of the following: deeper specialization that reallocates effective corpus depth across roles; reduced effective working accuracy on regimes where currency-maintenance time is unavailable; additional staffing; or compensating mechanisms outside the model's scope.
+\end{quote}
+
+This is the careful version of the structural claim. It identifies how real CAs sustain operational function: specialization, lowered effective accuracy in practice, additional staffing, and a portfolio of institutional mechanisms (peer review, escalation paths, precedent systems, tooling-supported recall, event-triggered re-engagement). Each of these absorbs some portion of the time-equivalent burden the model computes. None of them eliminates the burden; they redistribute it across people, tools, and processes. The model's claim is about the time-equivalent total, not the mechanism of expenditure. Whether currency is maintained by an analyst rereading source material, a senior peer cross-checking a junior analyst's reasoning, an internal wiki of precedent, a diff tool flagging changed sections, or all of these together, the question is whether the aggregate time-equivalent fits in plausible team capacity. The trajectory along all of these dimensions is upward.
+
+A reviewer might reasonably ask whether the audit-centric model assumes individual reviewer mastery or organizational redundancy. The answer is that the relevant audit frameworks (WebTrust, ETSI EN 319 411-1) are agnostic on the mechanism: control objectives are specified in terms of organizational outcomes (the CA performs validations correctly, manages keys appropriately, produces correct certificate profiles) rather than in terms of how individual analyst recall is sustained. The implicit assumption the model tests is therefore the organizational one: that the attesting organization, by some combination of mechanisms, sustains the working knowledge needed to perform substantive review when called upon. The capacity-deficit finding does not say that individual analysts forget faster than $\tau_{\text{decay}}$ implies; it says that the time-equivalent budget required to sustain organizational competence at the working-accuracy threshold exceeds the team's plausibly-allocable capacity. That is an organizational claim, not a cognitive one.
+
+A second source of lower-bound bias deserves explicit mention. The 1{,}094 h/yr stack number includes baseline corpus reading only for TLS BR; for the four other CABF regimes (S/MIME BR, NetSec, Code Signing BR, EV Guidelines), per-version word counts are not yet ingested, so the stack-burden computation excludes the $n_{\text{passes}} \cdot W \cdot d_p$ term from those four regimes' contributions. As reference, TLS BR's team-aggregate baseline reading at central parameters is in the tens of hours per year. If the four other regimes were of broadly comparable size to TLS BR, including their baseline reading would raise the stack number meaningfully. Per-version corpus extraction across all five regimes is the highest-priority data work that does not require partner-CA cooperation, and is queued as Open data work item 2 in the repository.
+
+% =========================================================================
+% CABF stack burden + calendar figures
+% =========================================================================
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{../../results/figures/fig9_stack_change_burden.pdf}
+\caption{Change-handling burden across the CABF regime stack. TLS BR dominates; the EV Guidelines transition baseline (red border) is shown separately because it is not steady-state.}
+\label{fig:stack-burden}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{../../results/figures/fig8_relevant_dates_calendar.pdf}
+\caption{Scheduled propagation events on the TLS BR calendar as of 2026-04-28: the SHA-1 sunset (2026-09-15), prohibitions on Precertificate Signing CAs (2026-03-15, already in effect at snapshot), and validation-method retirements at sections 3.2.2.4 and 3.2.2.5 (2027-03-15). These are date-bound obligations the calendar imposes regardless of subsequent CABF activity.}
+\label{fig:calendar}
+\end{figure}
+
+% =========================================================================
+% 10. Reproducibility
+% =========================================================================
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+This index is computed from versioned inputs and is reproducible by running:
+
+\begin{verbatim}
+pip install -r requirements.txt
+python scripts/compute_headline.py
+python scripts/per_regime_cadence.py
+python scripts/per_regime_workload.py
+python scripts/stack_change_burden.py
+python scripts/cabf_stack_fte.py
+python scripts/make_figures.py
+python scripts/build_paper.py
+pytest tests/
+\end{verbatim}
+
+against the data files committed to the repository. Every parameter, persona definition, regime entry, and observed-window measurement is in YAML or CSV under \texttt{model/} and \texttt{data/}; nothing is hard-coded in the scripts. The snapshot date is loaded from \texttt{model/snapshot.yaml} via \texttt{model/meta.py}; no script calls \texttt{date.today()} at runtime.
+
+We use the framing \textit{reproducible from versioned inputs} rather than \textit{continuously recomputed} or \textit{weekly refreshed}. The CI workflow regenerates outputs from data already committed to the repository on a weekly schedule and on every push; \textbf{it does not fetch new data from CA/Browser Forum, Mozilla, Chrome, Apple, or Microsoft}. Updates to the underlying data require an explicit commit. Automated upstream ingest is named in the roadmap. Claims like ``continuously updated'' or ``weekly refreshed index'' should be avoided in favor of the more precise ``regenerated from versioned inputs.''
+
+% =========================================================================
+% References
+% =========================================================================
+\section*{References}
+
+\begin{itemize}[leftmargin=1em, label={}]
+\item Anderson, J. R., \& Schunn, C. D. (2000). Implications of the ACT-R learning theory: No magic bullets. \textit{Advances in Instructional Psychology}, 5, 1--34.
+\item CA/Browser Forum. (2012--2026). \textit{Baseline Requirements for the Issuance and Management of Publicly-Trusted TLS Server Certificates}. Versions 1.0 through 2.2.6.
+\item CA/Browser Forum. (2017--2026). \textit{Baseline Requirements for the Issuance and Management of Publicly-Trusted S/MIME Certificates}. Versions 1.0.0 through 1.0.13.
+\item CA/Browser Forum. (2013--2026). \textit{Network and Certificate System Security Requirements}. Versions 1.0 through 2.0.5.
+\item CA/Browser Forum. (2007--2026). \textit{Guidelines for the Issuance and Management of Extended Validation Certificates}. Versions 1.0 through 2.0.2.
+\item CA/Browser Forum. (2017--2026). \textit{Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates}. Versions 1.0 through 3.0.0.
+\item Mark, G., Gudith, D., \& Klocke, U. (2008). The cost of interrupted work: more speed and stress. \textit{Proceedings of CHI 2008}.
+\item Microsoft. (2024). \textit{Work Trend Index Annual Report}.
+\item Murre, J. M. J., \& Dros, J. (2015). Replication and analysis of Ebbinghaus' forgetting curve. \textit{PLoS ONE}, 10(7), e0120644.
+\item U.S. Bureau of Labor Statistics. (2024). \textit{Current Population Survey, professional and managerial occupations}.
+\end{itemize}
+
+% =========================================================================
+% Appendix: Methodology change log
+% =========================================================================
+\appendix
+\section{Release history}
+\label{sec:releasehistory}
+
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{v0.1 (2026-04-28).} Initial public release.
+\end{itemize}
+
+\end{document}
