@@ -40,6 +40,9 @@ jobs:
       - name: Run test suite
         run: pytest tests/ -v
 
+      - name: Ensure results directories exist
+        run: mkdir -p results/figures results/tables
+
       - name: Regenerate headline (TLS BR per-persona, capacity ratios)
         run: python scripts/compute_headline.py
 
