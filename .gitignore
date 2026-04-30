@@ -2,7 +2,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 papers/compliance-burden-index/build/
-papers/compliance-burden-index/cbi.pdf
 results/
 .DS_Store
 *.swp
